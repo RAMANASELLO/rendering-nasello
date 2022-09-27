@@ -1,24 +1,21 @@
 import { useState } from 'react'
 import React from 'react'
 
+export const CartContext = React.createContext()
 
- export const CartContext = React.createContext()
-
- export const CartProvider = ({children}) => {
-    const [productCartList, setProductCartList] = useState([])
+export const CartProvider = ({children}) => {
+    const [productCartList, setProductCartList] = useState([]);
      
     const isInCart = (productId) => {
         const productExist = productCartList.some(item=>item.id === productId);
         return productExist
     }
 
-
-    const addItem = (item, productId, quantity) => {
-        console.log("item", item, "productId", productId, "quantity", quantity)
+    const addItem = (item, quantity) => {
+        console.log("item", item, "quantity", quantity)
         const newProduct = {
             ...item,
             quantity,
-      
         }
          console.log("newProduct", newProduct)
 
@@ -26,8 +23,7 @@ import React from 'react'
             const productPos= productCartList.findIndex(product=>product.id ===item.id)
             const newArreglo = [...productCartList]
             newArreglo[productPos].quantity=newArreglo[productPos].quantity + quantity;
-            newArreglo[productPos].quantityPrice=  newArreglo[productPos].quantity * newArreglo
-            [productPos].price
+            newArreglo[productPos].quantityPrice=  newArreglo[productPos].quantity * newArreglo[productPos].price;
             setProductCartList(newArreglo)
         } else{
 
